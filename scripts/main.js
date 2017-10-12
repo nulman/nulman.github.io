@@ -192,6 +192,7 @@ Babble.init = function(){
             //Babble.getMessages(document.getElementById("val").value);
             //Babble.deleteMessage(document.getElementById("val").value);
             textBox.style.height = '70px';
+            textBox.setAttribute('style', 'overflow-y:hidden;')
             var babble = JSON.parse(localStorage.getItem('babble'));
             var message = {
                     name: babble.userInfo.name,
@@ -231,8 +232,14 @@ Babble.fixCSS = function(){
     }
 
     function OnInput() {
-      this.style.height = 'auto';
-      this.style.height = (this.scrollHeight) + 'px';
+            if(this.scrollHeight >= 300){
+            this.setAttribute('style', 'overflow-y:scroll;');
+            this.style.height = '300px';
+            }else{
+            this.setAttribute('style', 'overflow-y:hidden;');
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+            }
     }
 }
 
