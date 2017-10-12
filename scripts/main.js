@@ -12,11 +12,11 @@ Babble.XhrReq = function(url, requestType,callback=null, data=null){
                 parsedResponse = JSON.parse(xhr.responseText);
                 callback(parsedResponse);
             }catch(e){
-                console.log('-E- ' + e.message);
                 if(requestType == 'DELETE'){
                 callback(url.match(/\d+$/)[0]);
                 } else{
                     callback();
+                    console.log('-E- ' + e.message);
                 }
             }
             resolve();
@@ -75,27 +75,29 @@ Babble.appendToChatWindow = function(messages){
         var timestamp = timestamp.getHours() + ':' + ('0' + timestamp.getMinutes()).substr(-2)
         var hidden;
         if(babble.userInfo.email == message.email && babble.userInfo.email != ''){
-            hidden = 'visible';
+            hidden = `<button class='delete'  data-id=${message.id} aria-label="delete_messege" tabindex="1">&times;</button>`;
         }else{
-            hidden = 'hidden';
+            hidden = '';
         }
         var item = document.createElement('li');
         item.className = 'message-container';
         item.id = `messageNumber${message.id}`;
         //item.innerHTML = `<img src='https://s3.amazonaws.com/37assets/svn/1065-IMG_2529.jpg' class='profile-pic'>
         //<p class='message-id' hidden>${message.id}</p>
-        item.innerHTML = `<img src='https://secure.gravatar.com/avatar/${message.emailHash}' class='profile-pic'>
-                    <div class='message-text'>
-                        <p class='name'><cite>${message.name}</cite></p>
-                        <p class='delete' ${hidden} data-id=${message.id}>&times;</p>
-                        <p class='time'><time>${timestamp}</time></p>
+        item.innerHTML = `<img src='https://secure.gravatar.com/avatar/${message.emailHash}' class='profile-pic' alt=''>
+                    <div tabindex="1" class='message-text'>
+                        <cite class='name'>${message.name}</cite>
+                        ${hidden}
+                        <time class='time'>${timestamp}</time>
                         <br><br>
                         <p class='message-content'>${message.message}</p>
                     </div>`;
         item.getAttribute('data-id')
-        item.getElementsByClassName('delete')[0].addEventListener('click', function(event){
-            Babble.deleteMessage(this.getAttribute('data-id'),Babble.removeMessage);
-        });
+        if(item.getElementsByClassName('delete')[0]){
+            item.getElementsByClassName('delete')[0].addEventListener('click', function(event){
+                Babble.deleteMessage(this.getAttribute('data-id'),Babble.removeMessage);
+            });
+        }
         if(chatWindow){
             chatWindow.append(item);
         }
@@ -189,6 +191,7 @@ Babble.init = function(){
             event.preventDefault();
             //Babble.getMessages(document.getElementById("val").value);
             //Babble.deleteMessage(document.getElementById("val").value);
+            textBox.style.height = '70px';
             var babble = JSON.parse(localStorage.getItem('babble'));
             var message = {
                     name: babble.userInfo.name,
@@ -199,7 +202,7 @@ Babble.init = function(){
             Babble.postMessage(message,Babble.flushMessage);
         });
     }
-    Babble.fixHight();
+    Babble.fixCSS();
     var lastIdSeen = 0;
     var i = 0;
     document.addEventListener("get-messages-loop", function(e) {
@@ -214,13 +217,23 @@ Babble.init = function(){
 }
 
 
-Babble.fixHight = function(){
+Babble.fixCSS = function(){
     var header = document.getElementsByTagName('header');
     if(header[0]){
         var height = (window.innerHeight - header[0].scrollHeight) ;
         document.getElementsByTagName('nav')[0].style.height = height + 'px';
         document.getElementsByClassName('message-board')[0].style.height = (height - document.getElementById('message-input').scrollHeight) + 'px';
     }  
+    var tx = document.getElementsByTagName('textarea');
+    for (var i = 0; i < tx.length; i++) {
+      tx[i].setAttribute('style', 'height:' + (tx[i].scrollHeight) + 'px;overflow-y:hidden;');
+      tx[i].addEventListener("input", OnInput, false);
+    }
+
+    function OnInput() {
+      this.style.height = 'auto';
+      this.style.height = (this.scrollHeight) + 'px';
+    }
 }
 
 
@@ -228,6 +241,9 @@ Babble.fixHight = function(){
 Babble.cacheMessage = function(event){
     var babble = JSON.parse(localStorage.getItem('babble'));
     var key = event.keyCode || event.charCode;
+    if(key == 13){
+        document.getElementById('submit-button').click();
+    }
     babble.currentMessage = document.getElementById("val").value
     localStorage.setItem('babble',JSON.stringify(babble));
 }

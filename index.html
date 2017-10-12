@@ -19,42 +19,49 @@
             <header>
 				<img src="images/logo.png" id='logo' alt="Babble Logo">
 			</header>
-			<div id='container'>
+			<main id='container'>
                 <!-- The Modal -->
                 <div class="modal" id="registration-modal">
                     <div class="modal-content">
                     <h3>who are you?</h3>
                     <br>
                       <form id='registration-input'>
-                        <label>Full Name: </label>
-                        <input type="text"  id="reg-name">
+                        <label for='name'>Full Name: </label>
+                        <input name='name' type="text"  id="reg-name">
                         <br>
-                        <label>Email: </label>
-                        <input type="text"  id="reg-email">
+                        <label for='email'>Email: </label>
+                        <input name='email' type="text"  id="reg-email">
                         <br><br>
                         <button aria-label='stay-anonymous' id='anonymous-button'>Stay Anonymous</button>
                         <button aria-label='save' id='register-button'>Save</button>
                         </form> 
                     </div>
                 </div>
-            <nav class='left-margin'></nav>
-            <div class="message-board">
-                <dl class="board-stats">
-                    <dt><img src="images/messages-icon.png" alt="# of messages"></dt>
-                    <dd><p id="message-count"></p></dd>
-                    <dt><img src="images/users-icon.png" alt="# of users"></dt>
-                    <dd><p id="user-count"></p></dd>
-                </dl>
-				<h3>Vegans</h3>
-                <ol class='babble-content' id='chat'>
-                </ol>
-                <form id='message-input'>
-					<textarea name="firstname" id="val" cols=50 rows=4></textarea>
-                    <button aria-label='submit' id='submit-button'>
-						<img src="images/submit.PNG" alt="submit" />
-					</button>
-                </form> 
-            </div>
-			</div>
+				<!-- nav bar -->
+				<nav class='left-margin'></nav>
+				<!-- messages -->
+				<div class="message-board">
+					<!-- statistics -->
+					<dl class="board-stats">
+						<dt hidden>Number of messages</dt>
+						<dd><img src="images/messages-icon.png" alt="# of messages"> <p id="message-count"></p></dd>
+						<dt hidden>Number of users</dt>
+						<dd><img src="images/users-icon.png" alt="# of users"> <p id="user-count"></p></dd>
+					</dl>
+					<!-- title -->
+					<h1>Vegans</h1>
+					<!-- messages container -->
+					<ol class='babble-content' id='chat'>
+					</ol>
+					<!-- new message input -->
+					<form id='message-input'>
+						<label for='submit-message' class='hidden'></label>
+						<textarea name="submit-message" id="val"></textarea>
+						<button aria-label='submit' id='submit-button'>
+							<img src="images/submit.PNG" alt="submit" />
+						</button>
+					</form> 
+				</div>
+			</main>
     </body>
 </html>

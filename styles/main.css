@@ -23,7 +23,6 @@ label {
 
 
 
-
 #logo{
 	float:left;
 }
@@ -34,11 +33,16 @@ label {
 }
 
 .board-stats{
-	float:right;
+    float:right;
 }
 
-.board-stats > p,img{
+.board-stats > dd{
 	float:left;
+}
+
+dd > p, img{
+    float: left;
+    margin: 0;
 }
 
 .left-margin{
@@ -55,6 +59,7 @@ label {
 	border: 0; 
 	background: transparent;
     cursor:pointer;
+    float:right;
 }
 
 .message-text{
@@ -64,7 +69,8 @@ label {
 	float: left;
 	background-color: white;
     min-width:200px;
-	max-width:60%;
+	max-width:600px;
+    overflow-wrap: break-word
 }
 
 .profile-pic{
@@ -99,8 +105,12 @@ label {
 	padding: 10px;
 }
 
-#chat li:hover > .message-text{
+.message-text:focus{
 	background-color: lightgray;
+}
+
+#chat li:hover > .message-text{
+    background-color: lightgray;
 }
 
 #message-input{
@@ -110,10 +120,14 @@ label {
 	padding:20px;
 	max-height:300px;
 	background-color:white;
+    display: flex;
 }
 
 #message-input > textarea{
 	border: none;
+    flex: 0.8;
+    min-height: 70px;
+    float: left;
 }
 
 /* The Modal (background) */
@@ -142,6 +156,15 @@ label {
 .delete{
 	float: right;
 	cursor: pointer;
+    opacity: 0;
+}
+
+.message-text:hover > .delete{
+    opacity: 1;
+}
+
+.message-text:focus > .delete{
+    opacity: 1;
 }
 
 
@@ -171,4 +194,50 @@ label {
 
 input,text-area,select{
     font-family: 'Nunito';
+}
+
+.hidden{
+    display:none;
+}
+
+/*mobile design*/
+@media (max-width:320px) {
+  .left-margin{
+	display: none;
+  }
+  .message-board{
+	width:100%;
+  }
+  #container {
+    width: 100%;
+	display: flex;
+    overflow-x: hidden;
+  }
+  #registration-modal{
+	display:flex !important;
+  }
+  .modal-content{
+	flex: 0.8;
+  }
+}
+
+@media (max-width:638px) {
+  .left-margin{
+		display: none;
+  }
+  
+  .message-board{
+	width:100%;
+  }
+  #container {
+    width: 100%;
+	display: flex;
+    overflow-x: hidden;
+  }
+  #registration-modal{
+	display:flex !important;
+  }
+  .modal-content{
+	flex: 0.8;
+  }
 }
