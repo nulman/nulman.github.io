@@ -17,7 +17,7 @@
     </head>
     <body>
             <header>
-				<img src="images/logo.png" id='logo'>
+				<img src="images/logo.png" id='logo' alt="Babble Logo">
 			</header>
 			<div id='container'>
                 <!-- The Modal -->
@@ -27,10 +27,10 @@
                     <br>
                       <form id='registration-input'>
                         <label>Full Name: </label>
-                        <input type="text"  id="reg-name"></input>
+                        <input type="text"  id="reg-name">
                         <br>
                         <label>Email: </label>
-                        <input type="text"  id="reg-email"></input>
+                        <input type="text"  id="reg-email">
                         <br><br>
                         <button aria-label='stay-anonymous' id='anonymous-button'>Stay Anonymous</button>
                         <button aria-label='save' id='register-button'>Save</button>
@@ -40,16 +40,16 @@
             <nav class='left-margin'></nav>
             <div class="message-board">
                 <dl class="board-stats">
-                    <dt><img src="images/messages-icon.png"></dt>
+                    <dt><img src="images/messages-icon.png" alt="# of messages"></dt>
                     <dd><p id="message-count"></p></dd>
-                    <dt><img src="images/users-icon.png"></dt>
+                    <dt><img src="images/users-icon.png" alt="# of users"></dt>
                     <dd><p id="user-count"></p></dd>
                 </dl>
-                <ol class='babble-content' id='chat'>
 				<h3>Vegans</h3>
+                <ol class='babble-content' id='chat'>
                 </ol>
                 <form id='message-input'>
-					<textarea type="text"  name="firstname" id="val" cols=50 rows=4></textarea>
+					<textarea name="firstname" id="val" cols=50 rows=4></textarea>
                     <button aria-label='submit' id='submit-button'>
 						<img src="images/submit.PNG" alt="submit" />
 					</button>
